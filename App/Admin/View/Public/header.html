@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8" />
+	<title>后台管理</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+	<link href="../Public/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../Public/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../Public/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../Public/css/style-metro.css" rel="stylesheet" type="text/css"/>
+	<link href="../Public/css/style.css" rel="stylesheet" type="text/css"/>
+	<link href="../Public/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+	<link href="../Public/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+	<link href="../Public/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+	<!-- END GLOBAL MANDATORY STYLES -->
+	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link href="../Public/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+	<!-- END PAGE LEVEL STYLES -->
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed">
+	<!-- BEGIN HEADER -->
+	<div class="header navbar navbar-inverse navbar-fixed-top">
+		<!-- BEGIN TOP NAVIGATION BAR -->
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<!-- BEGIN LOGO -->
+				<a class="brand" href="{:U('admin/index/index')}">
+					<!-- <img src="../Public/image/logo.png" width="86" height="14" alt="logo"/> -->
+					<div style="margin-left:10px;">后台管理</div>
+				</a>
+				<!-- END LOGO -->
+				<!-- BEGIN RESPONSIVE MENU TOGGLER -->
+				<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+				<img src="../Public/image/menu-toggler.png" alt="" />
+				</a>          
+				<!-- END RESPONSIVE MENU TOGGLER -->            
+				<!-- BEGIN TOP NAVIGATION MENU -->              
+				<ul class="nav pull-right" style="padding:5px 0;">
+					<!-- BEGIN USER LOGIN DROPDOWN -->
+					<li>
+					    <a href="{:U('home/index/index')}" target="_blank">
+					        <span class="badge">前台首页</span>
+					    </a>
+					</li>
+					<li class="dropdown user">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<span class="username">{$admin.username}</span>
+							<i class="icon-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="{:U('admin/setting/password')}"><i class="icon-user"></i>&nbsp;&nbsp;修改密码</a></li>
+							<li><a href="{:U('admin/setting/index')}"><i class="icon-tasks"></i>&nbsp;&nbsp;网站配置</a></li>
+							<li><a href="{:U('admin/global/cleanall')}"><i class="icon-envelope"></i>&nbsp;&nbsp;清空缓存</a></li>
+							<li class="divider"></li>
+							<li><a href="{:U('admin/index/logout')}"><i class="icon-key"></i>&nbsp;&nbsp;退出</a></li>
+						</ul>
+					</li>
+					<!-- END USER LOGIN DROPDOWN -->
+				</ul>
+				<!-- END TOP NAVIGATION MENU --> 
+			</div>
+		</div>
+		<!-- END TOP NAVIGATION BAR -->
+	</div>
+	<!-- END HEADER -->

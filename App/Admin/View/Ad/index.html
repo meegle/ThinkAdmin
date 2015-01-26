@@ -1,0 +1,107 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="../Public/css/datepicker.css" />
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+	<include file="Public:leftmenu" />
+	<!-- BEGIN PAGE -->
+	<div class="page-content">
+		<!-- BEGIN PAGE CONTAINER-->
+		<div class="container-fluid">
+			<!-- 内容-head start -->
+			<div class="row-fluid">
+				<div class="span12">
+					<!-- 导航 start -->
+					<ul class="breadcrumb">
+						<li>
+							<i class="icon-home"></i>
+							<a href="{:U('admin/index/index')}">首页</a>
+							<i class="icon-angle-right"></i>
+						</li>
+						<li>设置&nbsp;<i class="icon-angle-right"></i></li>
+						<li>广告管理</li>
+					</ul>
+					<!-- 导航 end -->
+				</div>
+			</div>
+			<!-- 内容-head end -->
+			<!-- 内容-body start -->
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption"><i class="icon-edit"></i>广告管理</div>
+						</div>
+						<div class="portlet-body">
+							<div class="clearfix">
+								<div class="btn-group">
+									<a href="{:U('admin/ad/add')}" class="btn green">添加&nbsp;<i class="icon-plus"></i></a>
+								</div>
+							</div>
+							<table class="table table-striped table-hover table-bordered">
+								<thead>
+									<tr>
+										<th><div class="text-center">#</div></th>
+										<th><div class="text-center">广告标题</div></th>
+										<th><div class="text-center">开始时间</div></th>
+										<th><div class="text-center">结束时间</div></th>
+										<th><div class="text-center">添加时间</div></th>
+										<th><div class="text-center">操作</div></th>
+									</tr>
+								</thead>
+								<tbody>
+									<volist name="list" id="vo">
+									<tr id="line_{$vo.id}">
+										<td>{$vo.id}</td>
+										<td>{$vo.ad_title}</td>
+										<td><notempty name="vo.start_time">{$vo.start_time|date="Y-m-d H:i:s",###}</notempty></td>
+										<td><notempty name="vo.end_time">{$vo.end_time|date="Y-m-d H:i:s",###}</notempty></td>
+										<td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+										<td>
+											<a class="btn green-stripe mini" href="{:U('admin/ad/edit', array('id'=>$vo['id']))}">编辑</a>
+											<a class="btn red-stripe mini btnDelete" href="#" data-id="{$vo.id}">删除</a>
+										</td>
+									</tr>
+									</volist>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 内容-body end -->
+		</div>
+		<!-- END PAGE CONTAINER-->    
+	</div>
+	<!-- END PAGE -->
+</div>
+<!-- END CONTAINER -->
+<include file="Public:footer" />
+<include file="Public:widget_alert" />
+<include file="Public:widget_dialog" />
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="../Public/js/app.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script type="text/javascript">
+jQuery(document).ready(function() {
+    App.init(); // initlayout and core plugins
+    //监听删除
+    $('.btnDelete').on('click', function() {
+		var $this = $(this);
+		ADMIN_UI.dialog({
+			'message': '确定要删除?'
+		}, function() {
+			$.post('{:U("admin/ad/doDel")}', {'id':$this.attr('data-id')}, function(res) {
+				if (res.status) {
+					$('#line_' + res.id).remove();
+				}
+				ADMIN_UI.alert({'message':res.info});
+			}, 'json');
+		});
+		return false;
+	});
+});
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

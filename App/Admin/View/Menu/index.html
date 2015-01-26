@@ -1,0 +1,116 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/common/js/treeTable/treeTable.css" />
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+	<include file="Public:leftmenu" />
+	<!-- BEGIN PAGE -->
+	<div class="page-content">
+		<!-- BEGIN PAGE CONTAINER-->
+		<div class="container-fluid">
+			<!-- 内容-head start -->
+			<div class="row-fluid">
+				<div class="span12">
+					<!-- 导航 start -->
+					<ul class="breadcrumb">
+						<li>
+							<i class="icon-home"></i>
+							<a href="{:U('admin/index/index')}">首页</a>
+							<i class="icon-angle-right"></i>
+						</li>
+						<li>菜单管理&nbsp;<i class="icon-angle-right"></i></li>
+						<li>后台菜单</li>
+					</ul>
+					<!-- 导航 end -->
+				</div>
+			</div>
+			<!-- 内容-head end -->
+			<!-- 内容-body start -->
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption"><i class="icon-reorder"></i>后台菜单管理</div>
+							<div class="actions">
+								<a href="{:U('admin/menu/add')}" class="btn green btnModal" data-title="添加菜单"><i class="icon-plus"></i>&nbsp;添加菜单</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<form class="J_ajaxForm" action="{:U('admin/menu/displayorder')}" method="post">
+							<table class="table table-striped table-hover" id="menuList">
+								<thead>
+									<tr>
+										<th width="80">排序</th>
+										<th>ID</th>
+										<th>群组/模块/方法</th>
+										<th>菜单名称</th>
+										<th>状态</th>
+										<th>管理操作</th>
+									</tr>
+								</thead>
+								<tbody>{$categorys}</tbody>
+							</table>
+							<div class="form-actions">
+								<button class="btn btn-primary green" type="submit">排序</button>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 内容-body end -->
+		</div>
+		<!-- END PAGE CONTAINER-->    
+	</div>
+	<!-- END PAGE -->
+</div>
+<!-- END CONTAINER -->
+<include file="Public:footer" />
+<include file="Public:widget_alert" />
+<include file="Public:widget_dialog" />
+<include file="Public:widget_ajax" />
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="__PUBLIC__/common/js/treeTable/treeTable.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="../Public/js/app.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script type="text/javascript">
+var validateFunc = function() {
+	$('#widget_ajax_btn_submit').remove();
+};
+jQuery(document).ready(function() {
+    App.init(); // initlayout and core plugins
+    //treeTable
+	$('#menuList').treeTable({
+    	indent: 20
+    });
+	//删除
+	$('.btnDelete').on('click', function() {
+		var $this = $(this);
+		ADMIN_UI.dialog({
+			'message': '确定要删除?'
+		}, function() {
+			$.post('{:U("admin/menu/doDel")}', {'id':$this.attr('data-id')}, function(res) {
+				if (res.status) {
+					$('#node-' + res.id).remove();
+				}
+				ADMIN_UI.alert({'message':res.info});
+			}, 'json');
+		});
+		return false;
+	});
+	//新增/修改
+	$('.btnModal').on('click', function() {
+		var $this = $(this);
+		var s;
+		ADMIN_UI.ajaxLoad($this.attr('href'), {
+			header: $this.attr('data-title')
+		}, $.noop, $.noop, validateFunc);
+		return false;
+	});
+});
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

@@ -1,0 +1,66 @@
+<include file="Public:header" />
+	<!-- BEGIN CONTAINER -->
+	<div class="page-container">
+		<include file="Public:leftmenu" />
+		<!-- BEGIN PAGE -->
+		<div class="page-content">
+			<!-- BEGIN PAGE CONTAINER-->
+			<div class="container-fluid">
+				<!-- 内容-head start -->
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- 导航 start -->
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home"></i>
+								<a href="{:U('admin/index/index')}">首页</a>
+								<i class="icon-angle-right"></i>
+							</li>
+							<li>主面板</li>
+						</ul>
+						<!-- 导航 end -->
+					</div>
+				</div>
+				<!-- 内容-head end -->
+				<!-- 内容-body start -->
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- BEGIN PORTLET-->
+						<div class="portlet box green">
+							<div class="portlet-title">
+								<div class="caption"><i class="icon-reorder"></i>系统信息</div>
+							</div>
+							<div class="portlet-body">
+								<table class="table table-hover table-striped table-bordered">
+									<volist name="server_info" id="vo">
+									<tr>
+										<td>{$key}</td>
+										<td>{$vo}</td>
+									</tr>
+									</volist>
+								</table>
+							</div>
+						</div>
+						<!-- END PORTLET-->
+					</div>
+				</div>
+				<!-- 内容-body end -->
+			</div>
+			<!-- END PAGE CONTAINER-->    
+		</div>
+		<!-- END PAGE -->
+	</div>
+	<!-- END CONTAINER -->
+	<include file="Public:footer" />
+	<!-- BEGIN PAGE LEVEL SCRIPTS -->
+	<script src="../Public/js/app.js" type="text/javascript"></script>
+	<!-- END PAGE LEVEL SCRIPTS -->  
+	<script>
+	jQuery(document).ready(function() {
+	   App.init(); // initlayout and core plugins
+	});
+	</script>
+	<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

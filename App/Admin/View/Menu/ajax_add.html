@@ -1,0 +1,81 @@
+<div class="row-fluid">
+	<div class="span12">
+		<form method="post" class="form-horizontal J_ajaxForm" action="{:U('admin/menu/'.($info['id']?'edit':'add'))}" style="margin:0;">
+			<input type="hidden" name="id" value="{$info.id}">
+			<div class="control-group margin-bottom-10">
+				<label class="control-label span3">上级</label>
+				<div class="controls span9">
+					<select name="parentid" class="m-wrap middle">
+						<option value="0">作为一级菜单</option>
+						{$select_categorys}
+					</select>
+				</div>
+			</div>
+			<div class="control-group margin-bottom-10">
+				<label class="control-label span3">名称<span class="required">*</span></label>
+				<div class="controls span9">
+					<input type="text" name="title" class="m-wrap middle" value="{$info.title}" />
+				</div>
+			</div>
+			<div class="control-group margin-bottom-10">
+				<label class="control-label span3">群组<span class="required">*</span></label>
+				<div class="controls span9">
+					<input type="text" name="group" class="m-wrap middle" value="{$info.group}" />
+				</div>
+			</div>
+			<div class="control-group margin-bottom-10">
+				<label class="control-label span3">模块<span class="required">*</span></label>
+				<div class="controls span9">
+					<input type="text" name="model" class="m-wrap middle" value="{$info.model}" />
+				</div>
+			</div>
+			<div class="control-group margin-bottom-10">
+				<label class="control-label span3">方法<span class="required">*</span></label>
+				<div class="controls span9">
+					<input type="text" name="action" class="m-wrap middle" value="{$info.action}" />
+				</div>
+			</div>
+			<div class="control-group margin-bottom-10">
+				<label class="control-label span3">参数</label>
+				<div class="controls span9">
+					<input type="text" name="data" class="m-wrap middle" value="{$info.data}" />
+					<span class="help-inline">例:id=3&p=3</span>
+				</div>
+			</div>
+			<div class="control-group margin-bottom-10">
+				<label class="control-label span3">图标</label>
+				<div class="controls span9">
+					<input type="text" name="icon" class="m-wrap middle" value="{$info.icon}" />
+				</div>
+			</div>
+			<div class="control-group margin-bottom-10">
+				<label class="control-label span3">备注</label>
+				<div class="controls span9">
+					<textarea name="remark" rows="3" class="m-wrap middle">{$info.remark}</textarea>
+				</div>
+			</div>
+			<div class="control-group margin-bottom-10">
+				<label class="control-label span3">状态</label>
+				<div class="controls span9">
+					<select name="status" class="m-wrap middle">
+						<option value="1" <if condition="$info['status'] eq '1' ">selected</if>>显示</option>
+						<option value="0" <if condition="$info['status'] eq '0'">selected</if>>隐藏</option>
+					</select>
+				</div>
+			</div>
+			<div class="control-group margin-bottom-10">
+				<label class="control-label span3">类型</label>
+				<div class="controls span9">
+					<select name="type" class="m-wrap middle">
+						<option value="1" <if condition="$info['type'] eq '1' ">selected</if>>参与权限控制</option>
+						<option value="0" <if condition="$info['type'] eq '0'">selected</if>>只作为菜单</option>
+					</select>
+				</div>
+			</div>
+			<div class="span9 offset3">
+				<button type="submit" class="btn purple">保存</button>
+				<div class="alert hide"></div>
+			</div>
+		</form>
+	</div>
+</div>

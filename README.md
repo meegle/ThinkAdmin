@@ -1,5 +1,5 @@
 # ThinkAdmin
-基于ThinkPHP的后台管理面板
+###基于ThinkPHP的后台管理面板
 
 1、初始功能模块如下：<br>
 （1）菜单配置，对于后台显示的菜单都通过手动进行配置，后续版本可能会进行优化。<br>
@@ -18,3 +18,18 @@
 （6）其他：例如时间控件，日期控件等等。<br>
 <br>
 说明：因为很多功能组件面板采用的是最新的html5标签和CSS3样式特性，所以需要在最新浏览器中才能看到最佳效果，否则面板会变形或出现脚本错误等问题。
+
+
+###搭建流程
+
+<code>$ git clone http://github.com/meegle/ThinkAdmin
+</code>
+
+<code>$ copy /init_data/App/Common/Conf/config.php /App/Common/Conf/config.php # 根据自己的情况修改Cookie配置项和数据库连接参数
+</code>
+
+<code># 创建初始表结构（在数据库中运行/init_data/sql/*.sql）
+</code>
+
+<code># 访问 http://localhost/ThinkAdmin/admin - 管理员账号admin, 初始密码123456
+</code>

@@ -1,6 +1,6 @@
 <?php
 return array(
-	//'配置项'=>'配置值'
+    //'配置项'=>'配置值'
     'ADMIN_CACHE_TIME'  => '3600', // 后台数据缓存时间，以秒为单位
     'ADMIN_PAGE_SIZE'   => 10, // 后台分页
 

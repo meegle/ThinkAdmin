@@ -6,8 +6,8 @@
 namespace Admin\Action;
 use Common\Action\ACommonAction;
 class ApiAction extends ACommonAction {
-	
-	public function index() {
+    
+    public function index() {
         if (IS_POST) {
             $action = I('post.action', '', 'trim');
             switch ($action) {
@@ -37,7 +37,7 @@ class ApiAction extends ACommonAction {
             $this->assign('ftp_config', FS('Apiconfig/ftpconfig'));
             $this->display();
         }
-	}
+    }
 }
 
 ?>

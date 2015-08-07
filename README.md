@@ -22,13 +22,13 @@
 
 ###搭建流程
 
-<code>$ git clone http://github.com/meegle/ThinkAdmin
+<code>$ git clone https://github.com/meegle/ThinkAdmin.git
 </code>
 
-<code>$ copy /init_data/App/Common/Conf/config.php /App/Common/Conf/config.php # 根据自己的情况修改Cookie配置项和数据库连接参数
+<code>$ cp ./init_data/App/Common/Conf/config.php ./App/Common/Conf/config.php # 根据自己的情况修改Cookie配置项和数据库连接参数
 </code>
 
-<code># 创建初始表结构（在数据库中运行/init_data/sql/*.sql）
+<code># 创建初始表结构（在数据库中运行./init_data/sql/*.sql）
 </code>
 
 <code># 访问 http://localhost/ThinkAdmin/admin - 管理员账号admin, 初始密码123456

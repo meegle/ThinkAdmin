@@ -1,191 +1,192 @@
-<include file="Public:header" />
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		<include file="Public:leftmenu" />
-		<!-- BEGIN PAGE -->
-		<div class="page-content">
-			<!-- BEGIN PAGE CONTAINER-->
-			<div class="container-fluid">
-				<!-- 内容-head start -->
-				<div class="row-fluid">
-					<div class="span12">
-						<!-- 导航 start -->
-						<ul class="breadcrumb">
-							<li>
-								<i class="icon-home"></i>
-								<a href="{:U('admin/index/index')}">首页</a>
-								<i class="icon-angle-right"></i>
-							</li>
-							<li>设置&nbsp;<i class="icon-angle-right"></i></li>
-							<li>网站设置</li>
-						</ul>
-						<!-- 导航 end -->
-					</div>
-				</div>
-				<!-- 内容-head end -->
-				<!-- 内容-body start -->
-				<div class="row-fluid">
-					<div class="span12">
-						<!-- BEGIN SAMPLE FORM PORTLET-->   
-						<div class="portlet box blue tabbable">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="icon-reorder"></i>
-									<span class="hidden-480">站点配置</span>
-								</div>
-							</div>
-							<div class="portlet-body form">
-								<include file="Public:widget_alert" />
-								<include file="Public:widget_dialog" />
-								<div class="tabbable portlet-tabs">
-									<ul class="nav nav-tabs">
-										<li><a href="#portlet_tab2" data-toggle="tab">新增</a></li>
-										<li class="active"><a href="#portlet_tab1" data-toggle="tab">管理</a></li>
-									</ul>
-									<div class="tab-content">
-										<div class="tab-pane active" id="portlet_tab1">
-											<!-- BEGIN FORM-->
-											<form method="post" action="{:U('admin/setting/doEdit')}" class="form-horizontal">
-												<volist name="list" id="vo">
-												<div class="control-group" id="line_{$vo['id']}">
-													<label class="control-label">{$vo['name']}</label>
-													<div class="controls">
-														<if condition="$vo['type'] eq 'textarea' ">
-															<textarea name="{$vo['id']}" class="large m-wrap" rows="3">{$vo['text']}</textarea>
-														<else />
-															<input name="{$vo['id']}" type="text" class="m-wrap large" value="{$vo['text']}" />
-														</if>
-														<a class="btn green-stripe btnDelete" href="#" data-id="{$vo['id']}">删除</a>
-														<span class="help-inline"><if condition="$vo['tip'] neq ' ' ">{$vo['tip']}</if>({$vo['code']})</span>
-													</div>
-												</div>
-												</volist>
-												<div class="form-actions">
-													<button type="submit" class="btn blue"><i class="icon-ok"></i>修改</button>
-												</div>
-											</form>
-											<!-- END FORM-->
-										</div>
-										<div class="tab-pane" id="portlet_tab2">
-											<!-- BEGIN FORM-->
-											<form class="form-horizontal">
-												<div class="control-group">
-													<label class="control-label">参数名称</label>
-													<div class="controls">
-														<input name="name" id="name" type="text" class="m-wrap large" value="" />
-														<span class="help-inline">便于自己知道此参数的作用的名称</span>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">参数代码</label>
-													<div class="controls">
-														<input name="code" id="code" type="text" class="m-wrap large" value="" />
-														<span class="help-inline">在模板中引用的代码，尽量不要和系统变更重命，可以加前缀，如ttxf_</span>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">参数类型</label>
-													<div class="controls">
-														<select name="type" id="type" class="large m-wrap" tabindex="1">
-															<option value="input">单行文本</option>
-															<option value="textarea">多行文本</option>
-														</select>
-														<span class="help-inline">参数的类型：单行文本所保存内容较小，多行文本可保存较多内容</span>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">参数说明</label>
-													<div class="controls">
-														<input name="tip" id="tip" type="text" class="m-wrap large" value="" />
-														<span class="help-inline">用来更详细的说明此参数的作用</span>
-													</div>
-												</div>
-												<div class="control-group last">
-													<label class="control-label">参数排序</label>
-													<div class="controls">
-														<input name="displayorder" id="displayorder" type="text" class="m-wrap large" value="" />
-														<span class="help-inline">参数在管理列表中的排序，越大越靠前</span>
-													</div>
-												</div>
-												<div class="form-actions">
-													<button type="button" class="btn blue" onclick="addNewSetting();"><i class="icon-ok"></i>添加</button>
-												</div>
-											</form>
-											<!-- END FORM-->
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- END SAMPLE FORM PORTLET-->
-					</div>
-				</div>
-				<!-- 内容-body end -->
-			</div>
-			<!-- END PAGE CONTAINER-->    
-		</div>
-		<!-- END PAGE -->
-	</div>
-	<!-- END CONTAINER -->
-	<include file="Public:footer" />
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="../Public/js/app.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL SCRIPTS -->
-<script>
-jQuery(document).ready(function() {
-	App.init(); // initlayout and core plugins
-	$('.btnDelete').on('click', function() {
-		var $this = $(this);
-		ADMIN_UI.dialog({
-			'message': '确定要删除?'
-		}, function() {
-			$.post('{:U("admin/setting/doDel")}', {'id':$this.attr('data-id')}, function(res) {
-				if (res.status) {
-					$('#line_' + res.id).remove();
-				}
-				ADMIN_UI.alert({'message':res.info});
-			}, 'json');
-		});
-		return false;
-	});
-});
-function addNewSetting() {
-	var name = $('#name').val();
-	var code = $('#code').val();
-	var type = $('#type').val();
-	var tip = $('#tip').val();
-	var displayorder = $('#displayorder').val();
-	if (name == '') {
-		ADMIN_UI.alert({'message':'参数名不能为空'});
-		$('#name').focus();
-		return false;
-	} else if (code == '') {
-		ADMIN_UI.alert({'message':'参数代码不能为空'});
-		$('#code').focus();
-		return false;
-	} else if (!displayorder.match(/^[\d]+$/)) {
-		ADMIN_UI.alert({'message':'参数排序只能为数字'});
-		$('#displayorder').focus();
-		return false;
-	}
-	var datas = {'name':name, 'code':code, 'type':type, 'displayorder':displayorder, 'tip':tip};
-	$.post('{:U('admin/setting/doAdd')}', datas, function(res) {
-		if (!res.status) {
-			ADMIN_UI.alert({'message':res.info});
-		} else {
-			var name = $('#name').val('');
-			var code = $('#code').val('');
-			var type = $('#type').val('');
-			var tip = $('#tip').val('');
-			var displayorder = $('#displayorder').val('');
-			ADMIN_UI.alert({'message':'新增成功'}, function() {
-				window.location.reload();
-			});
-		}
-	}, 'json');
-}
-</script>
-<!-- END JAVASCRIPTS -->
-</body>
-<!-- END BODY -->
-</html>
+<extend name="Public/base" />
+
+<block name="content">
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <include file="Public:leftmenu" />
+        <!-- BEGIN PAGE -->
+        <div class="page-content">
+            <!-- BEGIN PAGE CONTAINER-->
+            <div class="container-fluid">
+                <!-- 内容-head start -->
+                <div class="row-fluid">
+                    <div class="span12">
+                        <!-- 导航 start -->
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="icon-home"></i>
+                                <a href="{:U('admin/index/index')}">首页</a>
+                                <i class="icon-angle-right"></i>
+                            </li>
+                            <li>设置&nbsp;<i class="icon-angle-right"></i></li>
+                            <li>网站设置</li>
+                        </ul>
+                        <!-- 导航 end -->
+                    </div>
+                </div>
+                <!-- 内容-head end -->
+                <!-- 内容-body start -->
+                <div class="row-fluid">
+                    <div class="span12">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->   
+                        <div class="portlet box blue tabbable">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="icon-reorder"></i>
+                                    <span class="hidden-480">站点配置</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+                                <include file="Public:widget_alert" />
+                                <include file="Public:widget_dialog" />
+                                <div class="tabbable portlet-tabs">
+                                    <ul class="nav nav-tabs">
+                                        <li><a href="#portlet_tab2" data-toggle="tab">新增</a></li>
+                                        <li class="active"><a href="#portlet_tab1" data-toggle="tab">管理</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="portlet_tab1">
+                                            <!-- BEGIN FORM-->
+                                            <form method="post" action="{:U('admin/setting/doEdit')}" class="form-horizontal">
+                                                <volist name="list" id="vo">
+                                                <div class="control-group" id="line_{$vo['id']}">
+                                                    <label class="control-label">{$vo['name']}</label>
+                                                    <div class="controls">
+                                                        <if condition="$vo['type'] eq 'textarea' ">
+                                                            <textarea name="{$vo['id']}" class="large m-wrap" rows="3">{$vo['text']}</textarea>
+                                                        <else />
+                                                            <input name="{$vo['id']}" type="text" class="m-wrap large" value="{$vo['text']}" />
+                                                        </if>
+                                                        <a class="btn green-stripe btnDelete" href="#" data-id="{$vo['id']}">删除</a>
+                                                        <span class="help-inline"><if condition="$vo['tip'] neq ' ' ">{$vo['tip']}</if>({$vo['code']})</span>
+                                                    </div>
+                                                </div>
+                                                </volist>
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn blue"><i class="icon-ok"></i>修改</button>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                        <div class="tab-pane" id="portlet_tab2">
+                                            <!-- BEGIN FORM-->
+                                            <form class="form-horizontal">
+                                                <div class="control-group">
+                                                    <label class="control-label">参数名称</label>
+                                                    <div class="controls">
+                                                        <input name="name" id="name" type="text" class="m-wrap large" value="" />
+                                                        <span class="help-inline">便于自己知道此参数的作用的名称</span>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">参数代码</label>
+                                                    <div class="controls">
+                                                        <input name="code" id="code" type="text" class="m-wrap large" value="" />
+                                                        <span class="help-inline">在模板中引用的代码，尽量不要和系统变更重命，可以加前缀，如ttxf_</span>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">参数类型</label>
+                                                    <div class="controls">
+                                                        <select name="type" id="type" class="large m-wrap" tabindex="1">
+                                                            <option value="input">单行文本</option>
+                                                            <option value="textarea">多行文本</option>
+                                                        </select>
+                                                        <span class="help-inline">参数的类型：单行文本所保存内容较小，多行文本可保存较多内容</span>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">参数说明</label>
+                                                    <div class="controls">
+                                                        <input name="tip" id="tip" type="text" class="m-wrap large" value="" />
+                                                        <span class="help-inline">用来更详细的说明此参数的作用</span>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group last">
+                                                    <label class="control-label">参数排序</label>
+                                                    <div class="controls">
+                                                        <input name="displayorder" id="displayorder" type="text" class="m-wrap large" value="" />
+                                                        <span class="help-inline">参数在管理列表中的排序，越大越靠前</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-actions">
+                                                    <button type="button" class="btn blue" onclick="addNewSetting();"><i class="icon-ok"></i>添加</button>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+                <!-- 内容-body end -->
+            </div>
+            <!-- END PAGE CONTAINER-->    
+        </div>
+        <!-- END PAGE -->
+    </div>
+    <!-- END CONTAINER -->
+</block>
+
+<block name="script">
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="../Public/js/app.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script>
+    jQuery(document).ready(function() {
+        App.init(); // initlayout and core plugins
+        $('.btnDelete').on('click', function() {
+            var $this = $(this);
+            ADMIN_UI.dialog({
+                'message': '确定要删除?'
+            }, function() {
+                $.post('{:U("admin/setting/doDel")}', {'id':$this.attr('data-id')}, function(res) {
+                    if (res.status) {
+                        $('#line_' + res.id).remove();
+                    }
+                    ADMIN_UI.alert({'message':res.info});
+                }, 'json');
+            });
+            return false;
+        });
+    });
+    function addNewSetting() {
+        var name = $('#name').val();
+        var code = $('#code').val();
+        var type = $('#type').val();
+        var tip = $('#tip').val();
+        var displayorder = $('#displayorder').val();
+        if (name == '') {
+            ADMIN_UI.alert({'message':'参数名不能为空'});
+            $('#name').focus();
+            return false;
+        } else if (code == '') {
+            ADMIN_UI.alert({'message':'参数代码不能为空'});
+            $('#code').focus();
+            return false;
+        } else if (!displayorder.match(/^[\d]+$/)) {
+            ADMIN_UI.alert({'message':'参数排序只能为数字'});
+            $('#displayorder').focus();
+            return false;
+        }
+        var datas = {'name':name, 'code':code, 'type':type, 'displayorder':displayorder, 'tip':tip};
+        $.post('{:U('admin/setting/doAdd')}', datas, function(res) {
+            if (!res.status) {
+                ADMIN_UI.alert({'message':res.info});
+            } else {
+                var name = $('#name').val('');
+                var code = $('#code').val('');
+                var type = $('#type').val('');
+                var tip = $('#tip').val('');
+                var displayorder = $('#displayorder').val('');
+                ADMIN_UI.alert({'message':'新增成功'}, function() {
+                    window.location.reload();
+                });
+            }
+        }, 'json');
+    }
+    </script>
+</block>

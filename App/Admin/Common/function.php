@@ -5,17 +5,17 @@
  * @return $return 返回数据
  */
 function fn_get_groupinfo() {
-	$return = F('admin_group');
-	if (empty($return)) {
-		$return = M('group')->order('displayorder DESC')->select();
-		$mgroupinfo = array();
-		foreach ($return as $c) {
-			$mgroupinfo[$c['id']] = $c;
-		}
-		F('admin_group', $mgroupinfo);
-		$return = $mgroupinfo;
-	}
-	return $return;
+    $return = F('admin_group');
+    if (empty($return)) {
+        $return = M('group')->order('displayorder DESC')->select();
+        $mgroupinfo = array();
+        foreach ($return as $c) {
+            $mgroupinfo[$c['id']] = $c;
+        }
+        F('admin_group', $mgroupinfo);
+        $return = $mgroupinfo;
+    }
+    return $return;
 }
 
 /**
@@ -25,13 +25,13 @@ function fn_get_groupinfo() {
  * @return $return 返回数据
  */
 function fn_get_groupinfo_by_id($id, $field = '') {
-	$groupinfo = fn_get_groupinfo();
-	if (array_key_exists($field, $groupinfo[$id])) {
-		$return = $groupinfo[$id][$field];
-	} else {
-		$return = $groupinfo[$id];
-	}
-	return $return;
+    $groupinfo = fn_get_groupinfo();
+    if (array_key_exists($field, $groupinfo[$id])) {
+        $return = $groupinfo[$id][$field];
+    } else {
+        $return = $groupinfo[$id];
+    }
+    return $return;
 }
 
 /**
@@ -41,27 +41,27 @@ function fn_get_groupinfo_by_id($id, $field = '') {
  * @return $return 返回数据
  */
 function fn_get_menuinfo($status = NULL, $type = NULL) {
-	$cache_name = 'admin_menu';
-	$cache_name .= $status === NULL ? '' : '_status_'.$status;
-	$cache_name .= $type === NULL ? '' : '_type_'.$type;
-	$return = F($cache_name);
-	if (empty($return)) {
-		$where = array();
-		if (!is_null($status)) {
-			array_push($where, array('status' => $status));
-		}
-		if (!is_null($type)) {
-			array_push($where, array('type' => $type));
-		}
-		$return = M('menu')->where($where)->order('displayorder ASC')->select();
-		$m = array();
-		foreach ($return as $c) {
-			$m[$c['id']] = $c;
-		}
-		F($cache_name, $m);
-		$return = $m;
-	}
-	return $return;
+    $cache_name = 'admin_menu';
+    $cache_name .= $status === NULL ? '' : '_status_'.$status;
+    $cache_name .= $type === NULL ? '' : '_type_'.$type;
+    $return = F($cache_name);
+    if (empty($return)) {
+        $where = array();
+        if (!is_null($status)) {
+            array_push($where, array('status' => $status));
+        }
+        if (!is_null($type)) {
+            array_push($where, array('type' => $type));
+        }
+        $return = M('menu')->where($where)->order('displayorder ASC')->select();
+        $m = array();
+        foreach ($return as $c) {
+            $m[$c['id']] = $c;
+        }
+        F($cache_name, $m);
+        $return = $m;
+    }
+    return $return;
 }
 
 /**
@@ -71,13 +71,13 @@ function fn_get_menuinfo($status = NULL, $type = NULL) {
  * @return $return 返回数据
  */
 function fn_get_menuinfo_by_id($id, $field = '') {
-	$menuinfo = fn_get_menuinfo();
-	if (array_key_exists($field, $menuinfo[$id])) {
-		$return = $menuinfo[$id][$field];
-	} else {
-		$return = $menuinfo[$id];
-	}
-	return $return;
+    $menuinfo = fn_get_menuinfo();
+    if (array_key_exists($field, $menuinfo[$id])) {
+        $return = $menuinfo[$id][$field];
+    } else {
+        $return = $menuinfo[$id];
+    }
+    return $return;
 }
 
 /**
@@ -87,82 +87,82 @@ function fn_get_menuinfo_by_id($id, $field = '') {
  * @return $html string 返回菜单HTML
  */
 function fn_get_menu_html($parentid = 0, &$tree = NULL) {
-	$html = '';
-	if (is_null($tree)) {
-		$tree = new Org\Util\Tree();
-		$tree->init(fn_get_menuinfo(1));
-	}
-	$menuArr = $tree->get_tree_array($parentid, '');
-	$count = count($menuArr);
+    $html = '';
+    if (is_null($tree)) {
+        $tree = new Org\Util\Tree();
+        $tree->init(fn_get_menuinfo(1));
+    }
+    $menuArr = $tree->get_tree_array($parentid, '');
+    $count = count($menuArr);
 
-	$i = 1;
-	foreach ($menuArr as $v) {
-		if ($v['status'] == 0) continue;//隐藏菜单
+    $i = 1;
+    foreach ($menuArr as $v) {
+        if ($v['status'] == 0) continue;//隐藏菜单
 
-		$group_id = M('admin')->where(array('id'=>session('admin_id')))->getField('group_id');
-		if ($group_id != 1) {
-			//判断权限
-			if (!M('Menu')->where(array('group'=>$v['group'], 'model'=>$v['model'], 'action'=>$v['action'], 'type'=>0))->count()) {
-				if (!M('Access')->where('group_id=\''.$group_id.'\' and g=\''.$v['group'].'\' and m=\''.$v['model'].'\' and a=\''.$v['action'].'\'')->count()) continue;
-	        }
-		}
+        $group_id = M('admin')->where(array('id'=>session('admin_id')))->getField('group_id');
+        if ($group_id != 1) {
+            //判断权限
+            if (!M('Menu')->where(array('group'=>$v['group'], 'model'=>$v['model'], 'action'=>$v['action'], 'type'=>0))->count()) {
+                if (!M('Access')->where('group_id=\''.$group_id.'\' and g=\''.$v['group'].'\' and m=\''.$v['model'].'\' and a=\''.$v['action'].'\'')->count()) continue;
+            }
+        }
 
-		$noChild = empty($v['child']);
-		if ($noChild) {
-			$dataArr = array();
-			if (!empty($v['data'])) {//设置参数
-				$dataArr = explode('&', $v['data']);
-				$keyArr = array();
-				$valArr = array();
-				foreach ($dataArr as $d_k => $d_v) {
-					list($keyArr[$d_k], $valArr[$d_k]) = explode('=', $d_v);
-				}
-			}
-			$url = U($v['group'].'/'.$v['model'].'/'.$v['action'], array_combine($keyArr, $valArr));
-			unset($dataArr, $keyArr, $valArr);
-		}
+        $noChild = empty($v['child']);
+        if ($noChild) {
+            $dataArr = array();
+            if (!empty($v['data'])) {//设置参数
+                $dataArr = explode('&', $v['data']);
+                $keyArr = array();
+                $valArr = array();
+                foreach ($dataArr as $d_k => $d_v) {
+                    list($keyArr[$d_k], $valArr[$d_k]) = explode('=', $d_v);
+                }
+            }
+            $url = U($v['group'].'/'.$v['model'].'/'.$v['action'], array_combine($keyArr, $valArr));
+            unset($dataArr, $keyArr, $valArr);
+        }
 
-		$html .= '<li';
-		if ($parentid === 0) {
-			if ($i === 1) {
-				$html .= ' class="start"';
-			} elseif ($i === $count) {
-				$html .= ' class="last"';
-			}
-		}
-		$html .= '>';
-		$html .= '<a href="';
-		if ($noChild) {
-			$html .= $url;
-		} else {
-			$html .= 'javascript:;';
-		}
-		$html .= '">';
-		if (!empty($v['icon'])) $html .= '<i class="'.$v['icon'].'"></i>';
-		$html .= '<span class="title">'.$v['title'].'</span>';
-		$html .= '<span class="';
-		if ($noChild) {
-			// $html .= 'selected';
-		} else {
-			$html .= 'arrow';
-		}
-		$html .= '">';
-		$html .= '</span>';
-		$html .= '</a>';
-		if ($noChild) {
-			$html .= '<span class="hide">'.$url.'</span>';
-		}
-		//sub-menu start
-		if (!$noChild) {
-			$html .= '<ul class="sub-menu">';
-			$html .= fn_get_menu_html($v['id'], $tree);
-			$html .= '</ul>';
-		}
-		//sub-menu end
-		$html .= '</li>';
-		$i++;
-	}
-	return $html;
+        $html .= '<li';
+        if ($parentid === 0) {
+            if ($i === 1) {
+                $html .= ' class="start"';
+            } elseif ($i === $count) {
+                $html .= ' class="last"';
+            }
+        }
+        $html .= '>';
+        $html .= '<a href="';
+        if ($noChild) {
+            $html .= $url;
+        } else {
+            $html .= 'javascript:;';
+        }
+        $html .= '">';
+        if (!empty($v['icon'])) $html .= '<i class="'.$v['icon'].'"></i>';
+        $html .= '<span class="title">'.$v['title'].'</span>';
+        $html .= '<span class="';
+        if ($noChild) {
+            // $html .= 'selected';
+        } else {
+            $html .= 'arrow';
+        }
+        $html .= '">';
+        $html .= '</span>';
+        $html .= '</a>';
+        if ($noChild) {
+            $html .= '<span class="hide">'.$url.'</span>';
+        }
+        //sub-menu start
+        if (!$noChild) {
+            $html .= '<ul class="sub-menu">';
+            $html .= fn_get_menu_html($v['id'], $tree);
+            $html .= '</ul>';
+        }
+        //sub-menu end
+        $html .= '</li>';
+        $i++;
+    }
+    return $html;
 }
 
 /**
@@ -171,17 +171,17 @@ function fn_get_menu_html($parentid = 0, &$tree = NULL) {
  * @return $return
  */
 function fn_get_typeinfo_by_type($productType) {
-	$return = F('admin_type_'.$productType);
-	if (empty($return)) {
-		$return = M('type')->where(array('productType'=>$productType))->order('id ASC')->select();
-		$mtypeinfo = array();
-		foreach ($return as $c) {
-			$mtypeinfo[$c['id']] = $c;
-		}
-		F('admin_type_'.$productType, $mtypeinfo);
-		$return = $mtypeinfo;
-	}
-	return $return;
+    $return = F('admin_type_'.$productType);
+    if (empty($return)) {
+        $return = M('type')->where(array('productType'=>$productType))->order('id ASC')->select();
+        $mtypeinfo = array();
+        foreach ($return as $c) {
+            $mtypeinfo[$c['id']] = $c;
+        }
+        F('admin_type_'.$productType, $mtypeinfo);
+        $return = $mtypeinfo;
+    }
+    return $return;
 }
 
 /**

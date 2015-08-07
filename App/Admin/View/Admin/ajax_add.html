@@ -1,53 +1,53 @@
 <div class="row-fluid">
-	<div class="span12">
-		<form method="post" class="form-horizontal J_ajaxForm" action="{:U('admin/admin/'.($info['id']?'edit':'add'))}" style="margin:0;">
-			<input type="hidden" name="id" value="{$info.id}">
-			<div class="control-group">
-				<label class="control-label span3">管理员用户名<span class="required">*</span></label>
-				<div class="controls span9">
-					<input type="text" name="username" class="m-wrap middle" value="{$info.username}" />
-				</div>
-			</div>
-			<empty name="info.id">
-			<div class="control-group">
-				<label class="control-label span3">管理员密码<span class="required">*</span></label>
-				<div class="controls span9">
-					<input type="password" name="password" class="m-wrap middle" value="" />
-				</div>
-			</div>
-			<else/>
-			<div class="control-group">
-				<label class="control-label span3">管理员密码</label>
-				<div class="controls span9">
-					<input type="password" name="password" class="m-wrap middle" value="" />
-					<span class="help-inline">为空则不修改</span>
-				</div>
-			</div>
-			</empty>
-			<div class="control-group">
-				<label class="control-label span3">所属管理组<span class="required">*</span></label>
-				<div class="controls span9">
-					<select name="group_id" class="m-wrap middle">
-						<option value="0">--请选择--</option>
-						<volist name=":fn_get_groupinfo()" id="vo">
-						<option value="{$vo.id}" <if condition="$vo['id'] eq $info['group_id']">selected</if>>{$vo.name}</option>
-						</volist>
-					</select>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label span3">状态</label>
-				<div class="controls span9">
-					<select name="status" class="m-wrap middle">
-						<option value="1" <if condition="$info['status'] eq '1' ">selected</if>>正常</option>
-						<option value="0" <if condition="$info['status'] eq '0'">selected</if>>锁定</option>
-					</select>
-				</div>
-			</div>
-			<div class="span9 offset3">
-				<button type="submit" class="btn purple">保存</button>
-				<div class="alert hide"></div>
-			</div>
-		</form>
-	</div>
+    <div class="span12">
+        <form method="post" class="form-horizontal J_ajaxForm" action="{:U('admin/admin/'.($info['id']?'edit':'add'))}" style="margin:0;">
+            <input type="hidden" name="id" value="{$info.id}">
+            <div class="control-group">
+                <label class="control-label span3">管理员用户名<span class="required">*</span></label>
+                <div class="controls span9">
+                    <input type="text" name="username" class="m-wrap middle" value="{$info.username}" />
+                </div>
+            </div>
+            <empty name="info.id">
+            <div class="control-group">
+                <label class="control-label span3">管理员密码<span class="required">*</span></label>
+                <div class="controls span9">
+                    <input type="password" name="password" class="m-wrap middle" value="" />
+                </div>
+            </div>
+            <else/>
+            <div class="control-group">
+                <label class="control-label span3">管理员密码</label>
+                <div class="controls span9">
+                    <input type="password" name="password" class="m-wrap middle" value="" />
+                    <span class="help-inline">为空则不修改</span>
+                </div>
+            </div>
+            </empty>
+            <div class="control-group">
+                <label class="control-label span3">所属管理组<span class="required">*</span></label>
+                <div class="controls span9">
+                    <select name="group_id" class="m-wrap middle">
+                        <option value="0">--请选择--</option>
+                        <volist name=":fn_get_groupinfo()" id="vo">
+                        <option value="{$vo.id}" <if condition="$vo['id'] eq $info['group_id']">selected</if>>{$vo.name}</option>
+                        </volist>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label span3">状态</label>
+                <div class="controls span9">
+                    <select name="status" class="m-wrap middle">
+                        <option value="1" <if condition="$info['status'] eq '1' ">selected</if>>正常</option>
+                        <option value="0" <if condition="$info['status'] eq '0'">selected</if>>锁定</option>
+                    </select>
+                </div>
+            </div>
+            <div class="span9 offset3">
+                <button type="submit" class="btn purple">保存</button>
+                <div class="alert hide"></div>
+            </div>
+        </form>
+    </div>
 </div>

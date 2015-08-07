@@ -1,171 +1,172 @@
-<include file="Public:header" />
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		<include file="Public:leftmenu" />
-		<!-- BEGIN PAGE -->
-		<div class="page-content">
-			<!-- BEGIN PAGE CONTAINER-->
-			<div class="container-fluid">
-				<!-- 内容-head start -->
-				<div class="row-fluid">
-					<div class="span12">
-						<!-- 导航 start -->
-						<ul class="breadcrumb">
-							<li>
-								<i class="icon-home"></i>
-								<a href="{:U('admin/index/index')}">首页</a>
-								<i class="icon-angle-right"></i>
-							</li>
-							<li>设置&nbsp;<i class="icon-angle-right"></i></li>
-							<li>信息接口</li>
-						</ul>
-						<!-- 导航 end -->
-					</div>
-				</div>
-				<!-- 内容-head end -->
-				<!-- 内容-body start -->
-				<div class="row-fluid">
-					<div class="span12">
-						<!-- BEGIN SAMPLE FORM PORTLET-->   
-						<div class="portlet box blue tabbable">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="icon-reorder"></i>
-									<span class="hidden-480"></span>
-								</div>
-							</div>
-							<div class="portlet-body form">
-								<div class="tabbable portlet-tabs">
-									<ul class="nav nav-tabs">
-										<li><a href="#portlet_tab3" data-toggle="tab">FTP上传配置</a></li>
-										<li><a href="#portlet_tab2" data-toggle="tab">支付宝配置</a></li>
-										<li class="active"><a href="#portlet_tab1" data-toggle="tab">邮箱配置</a></li>
-									</ul>
-									<div class="tab-content">
-										<div class="tab-pane active" id="portlet_tab1">
-											<!-- BEGIN FORM-->
-											<form method="post" action="{:U('admin/api/index')}" class="form-horizontal">
-												<input type="hidden" name="action" value="mail">
-												<div class="control-group">
-													<label class="control-label">SMTP用户名</label>
-													<div class="controls">
-														<input name="mail[stmp][user]" type="text" class="m-wrap large" value="{$stmp_config.user}" />
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">SMTP密码</label>
-													<div class="controls">
-														<input name="mail[stmp][pass]" type="password" class="m-wrap large" value="{$stmp_config.pass}" />
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">SMTP服务器</label>
-													<div class="controls">
-														<input name="mail[stmp][server]" type="text" class="m-wrap large" value="{$stmp_config.server}" />
-													</div>
-												</div>
-												<div class="form-actions">
-													<button type="submit" class="btn blue"><i class="icon-ok"></i>保存</button>
-												</div>
-											</form>
-											<!-- END FORM-->
-										</div>
-										<div class="tab-pane" id="portlet_tab2">
-											<!-- BEGIN FORM-->
-											<form method="post" action="{:U('admin/api/index')}" class="form-horizontal">
-												<input type="hidden" name="action" value="alipay">
-												<div class="control-group">
-													<label class="control-label">支付宝账号</label>
-													<div class="controls">
-														<input name="alipay[account]" type="text" class="m-wrap large" value="{$alipay_config.account}" />
-														<span class="help-inline"></span>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">合作者身份(PID)</label>
-													<div class="controls">
-														<input name="alipay[partner]" type="text" class="m-wrap large" value="{$alipay_config.partner}" />
-														<span class="help-inline">这里是你在成功申请支付宝接口后获取到的PID</span>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">安全校验码(KEY)</label>
-													<div class="controls">
-														<input name="alipay[key]" type="text" class="m-wrap large" value="{$alipay_config.key}" />
-														<span class="help-inline">这里是你在成功申请支付宝接口后获取到的Key</span>
-													</div>
-												</div>
-												<div class="form-actions">
-													<button type="submit" class="btn blue"><i class="icon-ok"></i>保存</button>
-												</div>
-											</form>
-											<!-- END FORM-->
-										</div>
-										<div class="tab-pane" id="portlet_tab3">
-											<!-- BEGIN FORM-->
-											<form method="post" action="{:U('admin/api/index')}" class="form-horizontal">
-												<input type="hidden" name="action" value="ftp">
-												<div class="control-group">
-													<label class="control-label">FTP主机</label>
-													<div class="controls">
-														<input name="ftp[host]" type="text" class="m-wrap large" value="{$ftp_config.host}" />
-														<span class="help-inline"></span>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">FTP账号</label>
-													<div class="controls">
-														<input name="ftp[username]" type="text" class="m-wrap large" value="{$ftp_config.username}" />
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">FTP密码</label>
-													<div class="controls">
-														<input name="ftp[password]" type="password" class="m-wrap large" value="{$ftp_config.password}" />
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">FTP端口</label>
-													<div class="controls">
-														<input name="ftp[port]" type="text" class="m-wrap large" value="{$ftp_config.port|default=21}" />
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">超时时间</label>
-													<div class="controls">
-														<input name="ftp[timeout]" type="text" class="m-wrap large" value="{$ftp_config.timeout|default=90}" />
-													</div>
-												</div>
-												<div class="form-actions">
-													<button type="submit" class="btn blue"><i class="icon-ok"></i>保存</button>
-												</div>
-											</form>
-											<!-- END FORM-->
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- END SAMPLE FORM PORTLET-->
-					</div>
-				</div>
-				<!-- 内容-body end -->
-			</div>
-			<!-- END PAGE CONTAINER-->    
-		</div>
-		<!-- END PAGE -->
-	</div>
-	<!-- END CONTAINER -->
-	<include file="Public:footer" />
-	<!-- BEGIN PAGE LEVEL SCRIPTS -->
-	<script src="../Public/js/app.js" type="text/javascript"></script>
-	<!-- END PAGE LEVEL SCRIPTS -->  
-	<script>
-	jQuery(document).ready(function() {
-	    App.init(); // initlayout and core plugins
-	});
-	</script>
-	<!-- END JAVASCRIPTS -->
-</body>
-<!-- END BODY -->
-</html>
+<extend name="Public/base" />
+
+<block name="content">
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <include file="Public:leftmenu" />
+        <!-- BEGIN PAGE -->
+        <div class="page-content">
+            <!-- BEGIN PAGE CONTAINER-->
+            <div class="container-fluid">
+                <!-- 内容-head start -->
+                <div class="row-fluid">
+                    <div class="span12">
+                        <!-- 导航 start -->
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="icon-home"></i>
+                                <a href="{:U('admin/index/index')}">首页</a>
+                                <i class="icon-angle-right"></i>
+                            </li>
+                            <li>设置&nbsp;<i class="icon-angle-right"></i></li>
+                            <li>信息接口</li>
+                        </ul>
+                        <!-- 导航 end -->
+                    </div>
+                </div>
+                <!-- 内容-head end -->
+                <!-- 内容-body start -->
+                <div class="row-fluid">
+                    <div class="span12">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->   
+                        <div class="portlet box blue tabbable">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="icon-reorder"></i>
+                                    <span class="hidden-480"></span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+                                <div class="tabbable portlet-tabs">
+                                    <ul class="nav nav-tabs">
+                                        <li><a href="#portlet_tab3" data-toggle="tab">FTP上传配置</a></li>
+                                        <li><a href="#portlet_tab2" data-toggle="tab">支付宝配置</a></li>
+                                        <li class="active"><a href="#portlet_tab1" data-toggle="tab">邮箱配置</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="portlet_tab1">
+                                            <!-- BEGIN FORM-->
+                                            <form method="post" action="{:U('admin/api/index')}" class="form-horizontal">
+                                                <input type="hidden" name="action" value="mail">
+                                                <div class="control-group">
+                                                    <label class="control-label">SMTP用户名</label>
+                                                    <div class="controls">
+                                                        <input name="mail[stmp][user]" type="text" class="m-wrap large" value="{$stmp_config.user}" />
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">SMTP密码</label>
+                                                    <div class="controls">
+                                                        <input name="mail[stmp][pass]" type="password" class="m-wrap large" value="{$stmp_config.pass}" />
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">SMTP服务器</label>
+                                                    <div class="controls">
+                                                        <input name="mail[stmp][server]" type="text" class="m-wrap large" value="{$stmp_config.server}" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn blue"><i class="icon-ok"></i>保存</button>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                        <div class="tab-pane" id="portlet_tab2">
+                                            <!-- BEGIN FORM-->
+                                            <form method="post" action="{:U('admin/api/index')}" class="form-horizontal">
+                                                <input type="hidden" name="action" value="alipay">
+                                                <div class="control-group">
+                                                    <label class="control-label">支付宝账号</label>
+                                                    <div class="controls">
+                                                        <input name="alipay[account]" type="text" class="m-wrap large" value="{$alipay_config.account}" />
+                                                        <span class="help-inline"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">合作者身份(PID)</label>
+                                                    <div class="controls">
+                                                        <input name="alipay[partner]" type="text" class="m-wrap large" value="{$alipay_config.partner}" />
+                                                        <span class="help-inline">这里是你在成功申请支付宝接口后获取到的PID</span>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">安全校验码(KEY)</label>
+                                                    <div class="controls">
+                                                        <input name="alipay[key]" type="text" class="m-wrap large" value="{$alipay_config.key}" />
+                                                        <span class="help-inline">这里是你在成功申请支付宝接口后获取到的Key</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn blue"><i class="icon-ok"></i>保存</button>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                        <div class="tab-pane" id="portlet_tab3">
+                                            <!-- BEGIN FORM-->
+                                            <form method="post" action="{:U('admin/api/index')}" class="form-horizontal">
+                                                <input type="hidden" name="action" value="ftp">
+                                                <div class="control-group">
+                                                    <label class="control-label">FTP主机</label>
+                                                    <div class="controls">
+                                                        <input name="ftp[host]" type="text" class="m-wrap large" value="{$ftp_config.host}" />
+                                                        <span class="help-inline"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">FTP账号</label>
+                                                    <div class="controls">
+                                                        <input name="ftp[username]" type="text" class="m-wrap large" value="{$ftp_config.username}" />
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">FTP密码</label>
+                                                    <div class="controls">
+                                                        <input name="ftp[password]" type="password" class="m-wrap large" value="{$ftp_config.password}" />
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">FTP端口</label>
+                                                    <div class="controls">
+                                                        <input name="ftp[port]" type="text" class="m-wrap large" value="{$ftp_config.port|default=21}" />
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">超时时间</label>
+                                                    <div class="controls">
+                                                        <input name="ftp[timeout]" type="text" class="m-wrap large" value="{$ftp_config.timeout|default=90}" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn blue"><i class="icon-ok"></i>保存</button>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+                <!-- 内容-body end -->
+            </div>
+            <!-- END PAGE CONTAINER-->    
+        </div>
+        <!-- END PAGE -->
+    </div>
+    <!-- END CONTAINER -->
+</block>
+
+<block name="script">
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="../Public/js/app.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->  
+    <script>
+    jQuery(document).ready(function() {
+        App.init(); // initlayout and core plugins
+    });
+    </script>
+</block>

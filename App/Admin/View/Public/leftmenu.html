@@ -1,186 +1,186 @@
 <!-- BEGIN SIDEBAR -->
 <div class="page-sidebar nav-collapse collapse">
-	<!-- BEGIN SIDEBAR MENU -->        
-	<ul class="page-sidebar-menu">
-		<li style="margin-bottom:10px;">
-			<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-			<div class="sidebar-toggler hidden-phone"></div>
-			<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-		</li>
-		<li>
-			<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
-			<form class="sidebar-search hide">
-				<div class="input-box">
-					<a href="javascript:;" class="remove"></a>
-					<input type="text" placeholder="查找..." />
-					<input type="button" class="submit" value=" " />
-				</div>
-			</form>
-			<!-- END RESPONSIVE QUICK SEARCH FORM -->
-		</li>
-		<php>
-		$menu_html = F('admin_menu_html_'.$admin['group_id']);
-		if (empty($menu_html)) {
-			$menu_html = fn_get_menu_html(0);
-			F('admin_menu_html_'.$admin['group_id'], $menu_html);
-		}
-		echo $menu_html;
-		</php>
-		<!--
-		<li class="start">
-			<a href="{:U('admin/index/index')}">
-				<i class="icon-home"></i>
-				<span class="title">主面板</span>
-				<span class="selected"></span>
-			</a>
-			<span class="hide">{:U('admin/index/index')}</span>
-		</li>
-		<li>
-			<a href="javascript:;">
-				<i class="icon-cogs"></i>
-				<span class="title">设置</span>
-				<span class="arrow"></span>
-			</a>
-			<ul class="sub-menu">
-				<li>
-					<a href="{:U('admin/setting/password')}">修改密码</a>
-					<span class="hide">{:U('admin/setting/password')}</span>
-				</li>
-				<li>
-					<a href="{:U('admin/setting/index')}">网站设置</a>
-					<span class="hide">{:U('admin/setting/index')}</span>
-				</li>
-				<li>
-					<a href="{:U('admin/api/index')}">信息接口</a>
-					<span class="hide">{:U('admin/api/index')}</span>
-				</li>
-				<li>
-					<a href="#">友情链接</a>
-				</li>
-				<li>
-					<a href="{:U('admin/ad/index')}">广告管理</a>
-					<span class="hide">{:U('admin/ad/index')}</span>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="javascript:;">
-				<i class="icon-bookmark-empty"></i>
-				<span class="title">用户管理</span>
-				<span class="arrow"></span>
-			</a>
-			<ul class="sub-menu">
-				<li>
-					<a href="javascript:;">用户组<span class="arrow"></span></a>
-					<ul class="sub-menu">
-						<li>
-							<a href="{:U('admin/user/index')}">本站用户</a>
-							<span class="hide">{:U('admin/user/index')}</span>
-						</li>
-						<li><a href="#">第三方用户</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="javascript:;">管理组<span class="arrow"></span></a>
-					<ul class="sub-menu">
-						<li>
-							<a href="{:U('admin/group/index')}">组管理</a>
-							<span class="hide">{:U('admin/group/index')}</span>
-						</li>
-						<li>
-							<a href="{:U('admin/admin/index')}">管理员</a>
-							<span class="hide">{:U('admin/admin/index')}</span>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="javascript:;">
-				<i class="icon-table"></i>
-				<span class="title">菜单管理</span>
-				<span class="arrow"></span>
-			</a>
-			<ul class="sub-menu">
-				<li>
-					<a href="{:U('admin/menu/index')}">后台菜单</a>
-					<span class="hide">{:U('admin/menu/index')}</span>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="javascript:;">
-				<i class="icon-cogs"></i>
-				<span class="title">缓存管理</span>
-				<span class="arrow"></span>
-			</a>
-			<ul class="sub-menu">
-				<li>
-					<a href="{:U('admin/global/cleantpl', array('cache'=>1))}">前台模板</a>
-					<span class="hide">{:U('admin/global/cleantpl', array('cache'=>1))}</span>
-				</li>
-				<li>
-					<a href="{:U('admin/global/cleantpl', array('cache'=>2))}">后台模板</a>
-					<span class="hide">{:U('admin/global/cleantpl', array('cache'=>2))}</span>
-				</li>
-				<li>
-					<a href="{:U('admin/global/cleandata')}">数据缓存</a>
-					<span class="hide">{:U('admin/global/cleandata')}</span>
-				</li>
-				<li>
-					<a href="{:U('admin/global/cleanall')}">所有缓存</a>
-					<span class="hide">{:U('admin/global/cleanall')}</span>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="javascript:;">
-				<i class="icon-sitemap"></i>
-				<span class="title">内容管理</span>
-				<span class="arrow"></span>
-			</a>
-			<ul class="sub-menu">
-				<li>
-					<a href="javascript:;">菜单1<span class="arrow"></span></a>
-					<ul class="sub-menu">
-						<li><a href="#">链接1</a></li>
-						<li><a href="#">链接2</a></li>
-						<li><a href="#">链接3</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="javascript:;">菜单2<span class="arrow"></span></a>
-					<ul class="sub-menu">
-						<li><a href="#">链接1</a></li>
-						<li><a href="#">链接2</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#">菜单3</a>
-				</li>
-			</ul>
-		</li>
-		<li class="last">
-			<a href="javascript:;">
-				<i class="icon-bar-chart"></i>
-				<span class="title">扩展工具</span>
-				<span class="arrow"></span>
-			</a>
-			<ul class="sub-menu">
-				<li>
-					<a href="javascript:;">备份管理<span class="arrow"></span></a>
-					<ul class="sub-menu">
-						<li><a href="#">数据还原</a></li>
-						<li><a href="#">数据备份</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#">第三方登陆</a>
-				</li>
-			</ul>
-		</li>
-		-->
-	</ul>
-	<!-- END SIDEBAR MENU -->
+    <!-- BEGIN SIDEBAR MENU -->
+    <ul class="page-sidebar-menu">
+        <li style="margin-bottom:10px;">
+            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+            <div class="sidebar-toggler hidden-phone"></div>
+            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+        </li>
+        <li>
+            <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+            <form class="sidebar-search hide">
+                <div class="input-box">
+                    <a href="javascript:;" class="remove"></a>
+                    <input type="text" placeholder="查找..." />
+                    <input type="button" class="submit" value=" " />
+                </div>
+            </form>
+            <!-- END RESPONSIVE QUICK SEARCH FORM -->
+        </li>
+        <php>
+        $menu_html = F('admin_menu_html_'.$admin['group_id']);
+        if (empty($menu_html)) {
+            $menu_html = fn_get_menu_html(0);
+            F('admin_menu_html_'.$admin['group_id'], $menu_html);
+        }
+        echo $menu_html;
+        </php>
+        <!--
+        <li class="start">
+            <a href="{:U('admin/index/index')}">
+                <i class="icon-home"></i>
+                <span class="title">主面板</span>
+                <span class="selected"></span>
+            </a>
+            <span class="hide">{:U('admin/index/index')}</span>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="icon-cogs"></i>
+                <span class="title">设置</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{:U('admin/setting/password')}">修改密码</a>
+                    <span class="hide">{:U('admin/setting/password')}</span>
+                </li>
+                <li>
+                    <a href="{:U('admin/setting/index')}">网站设置</a>
+                    <span class="hide">{:U('admin/setting/index')}</span>
+                </li>
+                <li>
+                    <a href="{:U('admin/api/index')}">信息接口</a>
+                    <span class="hide">{:U('admin/api/index')}</span>
+                </li>
+                <li>
+                    <a href="#">友情链接</a>
+                </li>
+                <li>
+                    <a href="{:U('admin/ad/index')}">广告管理</a>
+                    <span class="hide">{:U('admin/ad/index')}</span>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="icon-bookmark-empty"></i>
+                <span class="title">用户管理</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="javascript:;">用户组<span class="arrow"></span></a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="{:U('admin/user/index')}">本站用户</a>
+                            <span class="hide">{:U('admin/user/index')}</span>
+                        </li>
+                        <li><a href="#">第三方用户</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">管理组<span class="arrow"></span></a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="{:U('admin/group/index')}">组管理</a>
+                            <span class="hide">{:U('admin/group/index')}</span>
+                        </li>
+                        <li>
+                            <a href="{:U('admin/admin/index')}">管理员</a>
+                            <span class="hide">{:U('admin/admin/index')}</span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="icon-table"></i>
+                <span class="title">菜单管理</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{:U('admin/menu/index')}">后台菜单</a>
+                    <span class="hide">{:U('admin/menu/index')}</span>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="icon-cogs"></i>
+                <span class="title">缓存管理</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{:U('admin/global/cleantpl', array('cache'=>1))}">前台模板</a>
+                    <span class="hide">{:U('admin/global/cleantpl', array('cache'=>1))}</span>
+                </li>
+                <li>
+                    <a href="{:U('admin/global/cleantpl', array('cache'=>2))}">后台模板</a>
+                    <span class="hide">{:U('admin/global/cleantpl', array('cache'=>2))}</span>
+                </li>
+                <li>
+                    <a href="{:U('admin/global/cleandata')}">数据缓存</a>
+                    <span class="hide">{:U('admin/global/cleandata')}</span>
+                </li>
+                <li>
+                    <a href="{:U('admin/global/cleanall')}">所有缓存</a>
+                    <span class="hide">{:U('admin/global/cleanall')}</span>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="icon-sitemap"></i>
+                <span class="title">内容管理</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="javascript:;">菜单1<span class="arrow"></span></a>
+                    <ul class="sub-menu">
+                        <li><a href="#">链接1</a></li>
+                        <li><a href="#">链接2</a></li>
+                        <li><a href="#">链接3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">菜单2<span class="arrow"></span></a>
+                    <ul class="sub-menu">
+                        <li><a href="#">链接1</a></li>
+                        <li><a href="#">链接2</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">菜单3</a>
+                </li>
+            </ul>
+        </li>
+        <li class="last">
+            <a href="javascript:;">
+                <i class="icon-bar-chart"></i>
+                <span class="title">扩展工具</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="javascript:;">备份管理<span class="arrow"></span></a>
+                    <ul class="sub-menu">
+                        <li><a href="#">数据还原</a></li>
+                        <li><a href="#">数据备份</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">第三方登陆</a>
+                </li>
+            </ul>
+        </li>
+        -->
+    </ul>
+    <!-- END SIDEBAR MENU -->
 </div>
 <!-- END SIDEBAR -->

@@ -21,6 +21,7 @@ Class IndexAction extends ACommonAction {
             '上传附件限制'  => ini_get('upload_max_filesize'),
             '执行时间限制'  => ini_get('max_execution_time').'秒',
             '剩余空间'      => round((@disk_free_space('.') / (1024 * 1024)), 2).'M',
+            '当前时区'      => ini_get('date.timezone')
         );
         $this->assign('server_info', $info);
         $this->display();

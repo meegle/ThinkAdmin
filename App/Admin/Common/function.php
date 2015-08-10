@@ -118,7 +118,7 @@ function fn_get_menu_html($parentid = 0, &$tree = NULL) {
                     list($keyArr[$d_k], $valArr[$d_k]) = explode('=', $d_v);
                 }
             }
-            $url = U($v['group'].'/'.$v['model'].'/'.$v['action'], array_combine($keyArr, $valArr));
+            $url = U(strtolower($v['group'].'/'.$v['model'].'/'.$v['action']), array_combine($keyArr, $valArr));
             unset($dataArr, $keyArr, $valArr);
         }
 

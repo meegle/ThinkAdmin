@@ -150,7 +150,7 @@ function fn_get_menu_html($parentid = 0, &$tree = NULL) {
         $html .= '</span>';
         $html .= '</a>';
         if ($noChild) {
-            $html .= '<span class="hide">'.$url.'</span>';
+            $html .= '<span class="hide">'.strtolower($url).'</span>';
         }
         //sub-menu start
         if (!$noChild) {

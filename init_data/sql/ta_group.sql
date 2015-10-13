@@ -24,8 +24,8 @@ CREATE TABLE `ta_group` (
   `name` varchar(20) NOT NULL COMMENT '名称',
   `status` tinyint(1) DEFAULT NULL COMMENT '状态',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  `create_time` int(11) NOT NULL COMMENT '创建时间',
-  `update_time` int(11) NOT NULL COMMENT '更新时间',
+  `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   `displayorder` int(3) NOT NULL DEFAULT '0' COMMENT '排序',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

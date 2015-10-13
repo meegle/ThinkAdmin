@@ -34,11 +34,9 @@ class GroupAction extends ACommonAction {
         if (IS_POST) {
             if ($this->group_obj->create()) {
                 if (I('post.id', 0, 'intval')) {
-                    $this->group_obj->update_time = time();
                     $state = $this->group_obj->save();
                     $msg = '修改';
                 } else {
-                    $this->group_obj->create_time = time();
                     $state = $this->group_obj->add();
                     $msg = '添加';
                 }

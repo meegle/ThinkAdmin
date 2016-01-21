@@ -1,5 +1,5 @@
 ;(function($) {
-    //UI组件
+    // UI组件
     ADMIN_UI = window.ADMIN_UI || {
         alert: function(messageObj, closeFunc) {
             // $('.modal').modal('hide');//...
@@ -7,16 +7,16 @@
                 message: messageObj.message,
                 btn_close: messageObj.btn_close
             };
-            //设置默认值
+            // 设置默认值
             if ($.type(closeFunc) != 'function') closeFunc = $.noop;
             if ($.type(messageObj.btn_close) != 'string') messageObj.btn_close = '确定';
 
             var $obj = $('#widget_alert');
             $obj
-                .on('show', function() {
+                .one('show', function() {
                     $('#widget_alert_message').html(messageObj.message);
-                    $('#widget_alert_btn_close').html(messageObj.btn_close).on('click', function() {
-                        $obj.on('hidden', closeFunc);
+                    $('#widget_alert_btn_close').html(messageObj.btn_close).one('click', function() {
+                        $obj.one('hidden', closeFunc);
                         $obj.modal('hide');
                         return false;
                     });
@@ -32,7 +32,7 @@
                 btn_submit: messageObj.btn_submit,
                 btn_cancel: messageObj.btn_cancel
             };
-            //设置默认值
+            // 设置默认值
             if ($.type(submitFunc) != 'function') submitFunc = $.noop;
             if ($.type(cancelFunc) != 'function') cancelFunc = $.noop;
             if ($.type(messageObj.btn_submit) != 'string') messageObj.btn_submit = '确定';
@@ -40,15 +40,15 @@
 
             var $obj = $('#widget_dialog');
             $obj
-                .on('show', function() {
+                .one('show', function() {
                     $('#widget_dialog_message').html(messageObj.message);
-                    $('#widget_dialog_btn_submit').html(messageObj.btn_submit).on('click', function() {
-                        $obj.on('hidden', submitFunc);
+                    $('#widget_dialog_btn_submit').html(messageObj.btn_submit).one('click', function() {
+                        $obj.one('hidden', submitFunc);
                         $obj.modal('hide');
                         return false;
                     });
-                    $('#widget_dialog_btn_cancel').html(messageObj.btn_cancel).on('click', function() {
-                        $obj.on('hidden', cancelFunc);
+                    $('#widget_dialog_btn_cancel').html(messageObj.btn_cancel).one('click', function() {
+                        $obj.one('hidden', cancelFunc);
                         $obj.modal('hide');
                         return false;
                     });
@@ -63,7 +63,7 @@
                 btn_submit: messageObj.btn_submit,
                 btn_cancel: messageObj.btn_cancel
             };
-            //设置默认值
+            // 设置默认值
             if ($.type(submitFunc) != 'function') submitFunc = $.noop;
             if ($.type(cancelFunc) != 'function') cancelFunc = $.noop;
             if ($.type(messageObj.btn_submit) != 'string') messageObj.btn_submit = '确定';
@@ -72,16 +72,16 @@
 
             var $obj = $('#widget_ajax');
             $obj
-                .on('show', function() {
+                .one('show', function() {
                     $('#widget_ajax_header').html(messageObj.header);
                     $('#widget_ajax_message').html('加载中...').load(url, loadFunc);
-                    $('#widget_ajax_btn_submit').html(messageObj.btn_submit).on('click', function() {
-                        $obj.on('hidden', submitFunc);
+                    $('#widget_ajax_btn_submit').html(messageObj.btn_submit).one('click', function() {
+                        $obj.one('hidden', submitFunc);
                         $obj.modal('hide');
                         return false;
                     });
-                    $('#widget_ajax_btn_cancel').html(messageObj.btn_cancel).on('click', function() {
-                        $obj.on('hidden', cancelFunc);
+                    $('#widget_ajax_btn_cancel').html(messageObj.btn_cancel).one('click', function() {
+                        $obj.one('hidden', cancelFunc);
                         $obj.modal('hide');
                         return false;
                     });
@@ -91,13 +91,13 @@
         }
     };
 
-    //全局Ajax处理
+    // 全局Ajax处理
     $.ajaxSetup({
-        cache: false,//关闭AJAX缓存
+        cache: false,// 关闭AJAX缓存
         complete: function(xhr) {},
         data: {},
         error: function(xhr, textStatus, errorThrown) {
-            //请求失败处理
+            // 请求失败处理
         }
     });
     //----- 表单相关 start -----
@@ -111,9 +111,6 @@
     .delegate('form.J_ajaxForm', 'submit', function(e) {
         var $this = $(this);
         var options = {
-            type: $this.attr('method'),
-            url: $this.attr('action'),
-            data: $this.serializeArray(),
             dataType: 'json',
             success: function(res) {
                 if (res.status) {
